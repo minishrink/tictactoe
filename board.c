@@ -1,7 +1,7 @@
 /**** INCLUDES ****/
 
 #include "board.h"
-#include "debug.h"
+#include "helpers.h"
 #include <stdbool.h>
 #include <stdlib.h>
 
@@ -89,7 +89,7 @@ void writeToCell(Board* b, CHAR col, CHAR row, SymbolT symbol) {
 }
 
 Board* initBoard() {
-  Board* pBoard = (Board *)malloc(sizeof(Board));
+  MALLOC(Board, pBoard);
   for (int i = 0; i < BOARDLEN; i++)  {
     for (int j = 0; j < BOARDLEN; j++)  {
       pBoard->Grid[i][j] = EMPTY;

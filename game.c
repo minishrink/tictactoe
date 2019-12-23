@@ -1,7 +1,7 @@
 /***** INCLUDES *****/
 
 #include "game.h"
-#include "debug.h"
+#include "helpers.h"
 #include <stdlib.h>
 
 /**** DEFINES ***/
@@ -14,7 +14,7 @@
 
 /* FIXME This function is not generalisable at all */
 Move* parseMove(char m[MOVELEN], SymbolT Piece)  {
-  Move *pMove = (Move *)malloc(sizeof(Move));
+  MALLOC(Move, pMove);
   pMove->Piece = Piece;
   if (HDRSTART <= (CHAR) m[0] && (CHAR) m[0] < HDREND) {
     pMove->Col = (CHAR) m[0] - (CHAR)HDRSTART;

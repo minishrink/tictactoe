@@ -7,3 +7,6 @@
 #else
 #define DEBUGF(...) {}
 #endif
+
+#define MALLOC(varType, varName) \
+  varType* varName = (varType *)malloc(sizeof(varType))

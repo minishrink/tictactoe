@@ -44,6 +44,6 @@ typedef struct MoveT  {
 
 char getSymbol(SymbolT sym);
 
-Board makeBoard(void);
+Board* initBoard(void);
 
 void makeMove(Board* b, Move* m);

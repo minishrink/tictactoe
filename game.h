@@ -27,6 +27,8 @@ typedef struct GameT  {
 
 /**** FUNCTION PROTOTYPES ****/
 
+Game* initGame(void);
+
 void beginGame(Game* g);
 
 void updateState(Game* g);

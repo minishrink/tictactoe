@@ -1,7 +1,6 @@
 /**** INCLUDES ****/
 
 #include "board.h"
-#include "helpers.h"
 #include <stdbool.h>
 #include <stdlib.h>
 

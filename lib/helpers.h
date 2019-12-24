@@ -1,5 +1,7 @@
 
-#include <stdio.h>
+#pragma once
+#include <stdlib.h>
+
 
 /* DEBUG switch outputs debug info */
 #if defined(DEBUG)
@@ -10,3 +12,6 @@
 
 #define MALLOC(varType, varName) \
   varType* varName = (varType *)malloc(sizeof(varType))
+
+#define BETWEEN(x,y,z) \
+  (x <= y) && (y <= z)

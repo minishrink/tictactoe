@@ -2,6 +2,7 @@
 
 #pragma once
 #include <stdint.h>
+#include "helpers.h"
 
 /***** DEFINES *****/
 

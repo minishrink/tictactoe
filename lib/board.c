@@ -88,7 +88,7 @@ char readCell(Board* b, CHAR col, CHAR row) {
 
 void writeToCell(Board* b, CHAR col, CHAR row, SymbolT symbol) {
   if (validCell(col, row) && (IS_EMPTY(b->Grid[col][row])))  {
-    b->Grid[col][row] = getSymbol(symbol);
+    b->Grid[row][col] = *getSymbol(symbol);
   }
   else  {
     DEBUGF("(%i, %i) : u fucked it\n", col, row);

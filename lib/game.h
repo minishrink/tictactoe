@@ -7,8 +7,8 @@
 /***** DATA TYPES ****/
 
 typedef struct PlayerT  {
-  char* Name;
-  char  Symbol;
+  CHAR* Name;
+  CHAR  Symbol;
 } Player;
 
 // recall enums are uint32 by default

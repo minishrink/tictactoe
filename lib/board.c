@@ -6,13 +6,13 @@
 #include <stdlib.h>
 
 /**** DEFINES ****/
-const char CROSS  = 'X';
-const char NOUGHT = 'O';
-const char EMPTY  = '-';
+const CHAR CROSS  = 'X';
+const CHAR NOUGHT = 'O';
+const CHAR EMPTY  = '-';
 
 /**** PRIVATE FUNCTIONS ****/
 
-const char getSymbol(SymbolT sym) {
+const CHAR getSymbol(SymbolT sym) {
   switch(sym) {
     case _CROSS:
       return CROSS;
@@ -33,6 +33,7 @@ bool validCell(CHAR row, CHAR col)  {
   }
   return (row < BOARDLEN) && (col < BOARDLEN);
 }
+
 /**** PRINT FNS ****/
 
 void printRow(RowT R) {
@@ -71,7 +72,7 @@ void printBoard(Board* b) {
   }
 }
 
-char readCell(Board* b, CHAR col, CHAR row) {
+CHAR readCell(Board* b, CHAR col, CHAR row) {
   if (validCell(col, row)) {
     return b->Grid[col][row];
   }

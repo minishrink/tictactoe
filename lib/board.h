@@ -14,9 +14,9 @@
 #define IS_NOUGHT(x) (NOUGHT==x)
 #define IS_EMPTY(x)  (EMPTY==x)
 
-extern const char CROSS ;
-extern const char NOUGHT;
-extern const char EMPTY ;
+extern const CHAR CROSS ;
+extern const CHAR NOUGHT;
+extern const CHAR EMPTY ;
 
 /***** DATA TYPES ****/
 
@@ -28,7 +28,7 @@ typedef enum SymbolT  {
 } SymbolT;
 
 /* Column and row typedefs */
-typedef char RowT[BOARDLEN];
+typedef CHAR RowT[BOARDLEN];
 typedef RowT GridT[BOARDLEN];
 
 /* 2D array board */
@@ -38,14 +38,14 @@ typedef struct BoardT {
 
 typedef struct MoveT  {
   SymbolT Piece;
-  char    Row;
-  char    Col;
+  CHAR    Row;
+  CHAR    Col;
 } Move;
 
 
 /**** FUNCTION PROTOTYPES ****/
 
-const char getSymbol(SymbolT sym);
+const CHAR getSymbol(SymbolT sym);
 
 Board* initBoard(void);
 

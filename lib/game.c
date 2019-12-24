@@ -14,7 +14,7 @@
 /***** PRIVATE IMPLEMENTATION *****/
 
 /* FIXME This function is not generalisable at all */
-Move* parseMove(char m[MOVELEN], SymbolT Piece)  {
+Move* parseMove(CHAR m[MOVELEN], SymbolT Piece)  {
   MALLOC(Move, pMove);
   CHAR col, row;
   pMove->Piece = Piece;
@@ -23,7 +23,7 @@ Move* parseMove(char m[MOVELEN], SymbolT Piece)  {
     col = m[0] - HDRSTART;
     pMove->Col = col;
   }
-  // convert char to row index
+  // convert CHAR to row index
   row = m[1] - NUMOFFSET;
   if (row < BOARDLEN) {
     pMove->Row = row;
@@ -32,7 +32,7 @@ Move* parseMove(char m[MOVELEN], SymbolT Piece)  {
   return pMove;
 }
 
-void move(Board* b, char m[MOVELEN], SymbolT Piece) {
+void move(Board* b, CHAR m[MOVELEN], SymbolT Piece) {
   Move* pMove = parseMove(m, Piece);
   writeToCell(b, pMove->Col, pMove->Row, Piece);
 }
@@ -45,7 +45,7 @@ Game* initGame(void) {
   return g;
 }
 
-Player* initPlayer(char* name, SymbolT sym)  {
+Player* initPlayer(CHAR* name, SymbolT sym)  {
   MALLOC(Player, p);
   p->Name   = name;
   p->Symbol = getSymbol(sym);

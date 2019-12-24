@@ -12,14 +12,6 @@ const char EMPTY  = '-';
 
 /**** PRIVATE FUNCTIONS ****/
 
-bool validCell(CHAR row, CHAR col)  {
-  if (!((row < BOARDLEN) && (col < BOARDLEN))) {
-    printf("INVALID CELL(%d, %d)\n", col, row);
-  }
-  return (row < BOARDLEN) && (col < BOARDLEN);
-}
-
-/*
 const char getSymbol(SymbolT sym) {
   switch(sym) {
     case _CROSS:
@@ -29,14 +21,17 @@ const char getSymbol(SymbolT sym) {
       return NOUGHT;
       break;
     default:
-      return _EMPTY;
+      DEBUGF("getSymbol(%d) = %c??\n", sym, sym);
+      return EMPTY;
       break;
   }
 }
-*/
 
-const char getSymbol(SymbolT sym) {
-  return ((const char) sym);
+bool validCell(CHAR row, CHAR col)  {
+  if (!((row < BOARDLEN) && (col < BOARDLEN))) {
+    DEBUGF("INVALID CELL(%d, %d)\n", col, row);
+  }
+  return (row < BOARDLEN) && (col < BOARDLEN);
 }
 /**** PRINT FNS ****/
 
@@ -88,7 +83,7 @@ char readCell(Board* b, CHAR col, CHAR row) {
 
 void writeToCell(Board* b, CHAR col, CHAR row, SymbolT symbol) {
   if (validCell(col, row) && (IS_EMPTY(b->Grid[col][row])))  {
-    b->Grid[row][col] = *getSymbol(symbol);
+    b->Grid[row][col] = getSymbol(symbol);
   }
   else  {
     DEBUGF("(%i, %i) : u fucked it\n", col, row);

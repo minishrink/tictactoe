@@ -39,7 +39,7 @@ void move(Board* b, char m[MOVELEN], SymbolT Piece) {
 
 /****** PUBLIC FUNCTIONS *****/
 
-Game* makeGame(void) {
+Game* initGame(void) {
   MALLOC(Game, g);
   g->state = NOT_STARTED;
   return g;

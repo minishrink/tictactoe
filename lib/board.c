@@ -86,7 +86,7 @@ void writeToCell(Board* b, CHAR col, CHAR row, SymbolT symbol) {
     b->Grid[row][col] = getSymbol(symbol);
   }
   else  {
-    DEBUGF("(%i, %i) : u fucked it\n", col, row);
+    DEBUGF("invalid cell, cannot write to (%i, %i)\n", col, row);
   }
 }
 

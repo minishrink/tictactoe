@@ -6,6 +6,9 @@
 #include <stdlib.h>
 
 /**** DEFINES ****/
+const char CROSS  = 'X';
+const char NOUGHT = 'O';
+const char EMPTY  = '-';
 
 /**** PRIVATE FUNCTIONS ****/
 
@@ -16,22 +19,25 @@ bool validCell(CHAR row, CHAR col)  {
   return (row < BOARDLEN) && (col < BOARDLEN);
 }
 
-char getSymbol(SymbolT sym) {
-  char symbol = EMPTY;
+/*
+const char getSymbol(SymbolT sym) {
   switch(sym) {
     case _CROSS:
-      symbol = CROSS;
+      return CROSS;
       break;
     case _NOUGHT:
-      symbol = NOUGHT;
+      return NOUGHT;
       break;
-    case _EMPTY:
     default:
+      return _EMPTY;
       break;
   }
-  return symbol;
 }
+*/
 
+const char getSymbol(SymbolT sym) {
+  return ((const char) sym);
+}
 /**** PRINT FNS ****/
 
 void printRow(RowT R) {
@@ -75,6 +81,7 @@ char readCell(Board* b, CHAR col, CHAR row) {
     return b->Grid[col][row];
   }
   else  { // FIXME, fail here?
+    DEBUGF("\nERROR: cannot read cell (%d, %d)\n", col, row);
     return EMPTY;
   }
 }

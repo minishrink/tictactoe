@@ -6,24 +6,29 @@
 
 /**** DEFINES ***/
 
-#define MOVELEN (2u)
-#define HDRSTART (65u)
-#define HDREND (HDRSTART + BOARDLEN)
+#define MOVELEN   (2u)
+#define HDRSTART  (65u)
+#define HDREND    (HDRSTART + BOARDLEN)
+#define NUMOFFSET (49u)
 
 /***** PRIVATE IMPLEMENTATION *****/
 
 /* FIXME This function is not generalisable at all */
 Move* parseMove(char m[MOVELEN], SymbolT Piece)  {
   MALLOC(Move, pMove);
+  CHAR col, row;
   pMove->Piece = Piece;
   if (HDRSTART <= (CHAR) m[0] && (CHAR) m[0] < HDREND) {
-    pMove->Col = (CHAR) m[0] - (CHAR)HDRSTART;
-    DEBUGF("Column %c = %d\n", m[0], pMove->Col);
+    // convert letter to column index
+    col = m[0] - HDRSTART;
+    pMove->Col = col;
   }
-  if (m[1] < BOARDLEN) {
-    pMove->Row = ((CHAR) (m[1])) - (CHAR) 1u;
-    DEBUGF("Row %c = %d\n", m[0], pMove->Row);
+  // convert char to row index
+  row = m[1] - NUMOFFSET;
+  if (row < BOARDLEN) {
+    pMove->Row = row;
   }
+  DEBUGF("Move: %s -> (Col: %d, Row: %d)\n", m, pMove->Col, pMove->Row);
   return pMove;
 }
 
@@ -34,15 +39,15 @@ void move(Board* b, char m[MOVELEN], SymbolT Piece) {
 
 /****** PUBLIC FUNCTIONS *****/
 
-Game makeGame(void) {
-  Game g;
-  g.state = NOT_STARTED;
+Game* makeGame(void) {
+  MALLOC(Game, g);
+  g->state = NOT_STARTED;
   return g;
 }
 
-Player makePlayer(char* name, SymbolT sym)  {
-  Player p;
-  p.Name   = name;
-  p.Symbol = getSymbol(sym);
+Player* initPlayer(char* name, SymbolT sym)  {
+  MALLOC(Player, p);
+  p->Name   = name;
+  p->Symbol = getSymbol(sym);
   return p;
 }

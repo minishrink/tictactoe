@@ -5,11 +5,15 @@
 
 /***** DEFINES *****/
 
+/*
 #define CROSS    ('X')
 #define NOUGHT   ('O')
 #define EMPTY    ('-')
+*/
+
 #define BOARDLEN (3u)
-#define CHAR int
+#define CHAR     uint8_t
+
 /***** MACROS ******/
 
 #define IS_CROSS(x)  (CROSS==x)
@@ -18,11 +22,16 @@
 
 /***** DATA TYPES ****/
 
+// ('X', 88); ('O', 79); ('-', 45)
 typedef enum SymbolT  {
-  _EMPTY,
-  _CROSS,
-  _NOUGHT
+  _EMPTY  = 45,
+  _NOUGHT = 79,
+  _CROSS  = 88
 } SymbolT;
+
+extern const char CROSS ;
+extern const char NOUGHT;
+extern const char EMPTY ;
 
 /* Column and row typedefs */
 typedef char RowT[BOARDLEN];
@@ -42,7 +51,7 @@ typedef struct MoveT  {
 
 /**** FUNCTION PROTOTYPES ****/
 
-char getSymbol(SymbolT sym);
+const char getSymbol(SymbolT sym);
 
 Board* initBoard(void);
 

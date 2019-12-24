@@ -29,7 +29,7 @@ const CHAR getSymbol(SymbolT sym) {
 
 bool validCell(CHAR row, CHAR col)  {
   if (!((row < BOARDLEN) && (col < BOARDLEN))) {
-    DEBUGF("INVALID CELL(%d, %d)\n", col, row);
+    DEBUGF("INVALID CELL(%d, %d)\n", row, col);
   }
   return (row < BOARDLEN) && (col < BOARDLEN);
 }
@@ -73,22 +73,23 @@ void printBoard(Board* b) {
   }
 }
 
-CHAR readCell(Board* b, CHAR col, CHAR row) {
-  if (validCell(col, row)) {
+CHAR readCell(Board* b, CHAR row, CHAR col) {
+  if (validCell(row, col)) {
     return b->Grid[col][row];
   }
   else  { // FIXME, fail here?
-    DEBUGF("\nERROR: cannot read cell (%d, %d)\n", col, row);
+    DEBUGF("\nERROR: cannot read cell (%d, %d)\n", row, col);
     return EMPTY;
   }
 }
 
-void writeToCell(Board* b, CHAR col, CHAR row, SymbolT symbol) {
-  if (validCell(col, row) && (IS_EMPTY(b->Grid[col][row])))  {
+void writeToCell(Board* b, CHAR row, CHAR col, SymbolT symbol) {
+  if (validCell(row, col) && (IS_EMPTY(b->Grid[row][col])))  {
     b->Grid[row][col] = getSymbol(symbol);
   }
   else  {
-    DEBUGF("invalid cell, cannot write to (%i, %i)\n", col, row);
+    DEBUGF("invalid cell, cannot write to (%i, %i)\n", row, col);
+    DEBUGF("read(%d, %d) = %c\n", row, col, readCell(b, row, col));
   }
 }
 

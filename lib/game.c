@@ -28,13 +28,13 @@ Move* parseMove(CHAR m[MOVELEN], SymbolT Piece)  {
   if (row < BOARDLEN) {
     pMove->Row = row;
   }
-  DEBUGF("Move: %s -> (Col: %d, Row: %d)\n", m, pMove->Col, pMove->Row);
+  DEBUGF("Move: %s -> (Row: %d, Col: %d)\n", m, pMove->Row, pMove->Col);
   return pMove;
 }
 
 void move(Board* b, CHAR m[MOVELEN], SymbolT Piece) {
   Move* pMove = parseMove(m, Piece);
-  writeToCell(b, pMove->Col, pMove->Row, Piece);
+  writeToCell(b, pMove->Row, pMove->Col, Piece);
 }
 
 /****** PUBLIC FUNCTIONS *****/

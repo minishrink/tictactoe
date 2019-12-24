@@ -43,16 +43,16 @@ void printRow(RowT R) {
   printf("|\n");
 }
 
-void printSep(int len)  {
+void printSep(int len) {
   printf("----");
   for (int i = 0; i < 4*BOARDLEN; i++)  {
     printf("%c", EMPTY);
   }
-  printf("\n");
+  printf("-\n");
 }
 
 void printHeader(int len) {
-  printf("   ||");
+  printf("|   |");
   for (int i = 0; i < BOARDLEN; i++)  {
     // print column labels starting with A
     printf(" %c |", 65+i);
@@ -63,10 +63,11 @@ void printHeader(int len) {
 /**** PUBLIC IMPLEMENTATIONS ***/
 
 void printBoard(Board* b) {
+  printSep(BOARDLEN);
   printHeader(BOARDLEN);
   printSep(BOARDLEN);
   for (int i = 0; i < BOARDLEN; i++)  {
-    printf(" %d |", i+1);
+    printf("| %d ", i+1);
     printRow(b->Grid[i]);
     printSep(BOARDLEN);
   }

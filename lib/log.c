@@ -7,7 +7,7 @@ void writeLog(const char* fmt, ...)  {
   va_list args;
   va_start(args, fmt);
   FILE* pFile = fopen(FILENAME, "a");
-  fprintf((pFile), fmt, args);
-  va_end(args);
+  vfprintf(pFile, fmt, args);
   fclose(pFile);
+  va_end(args);
 }

@@ -24,9 +24,24 @@ Game* initGame(const char* p1, const char* p2) {
   return g;
 }
 
-Player* initPlayer(CHAR* name, SymbolT sym)  {
-  MALLOC(Player, p);
-  p->Name   = name;
-  p->Symbol = getSymbol(sym);
-  return p;
+void beginGame(Game* g) {
+  g->board = initBoard();
+  g->state = IN_PROGRESS;
+}
+
+void updateState(Game* g) {
+}
+
+void move(Game* g, Player* p, CHAR moveStr[MOVELEN])  {
+  placePiece(g->board, moveStr, p->Piece);
+}
+
+void turn(Game* g, CHAR moveStr[MOVELEN])  {
+  Player* pCurrentPlayer = &(g->players[(g->turns)%2u]);
+  move(g, pCurrentPlayer, moveStr);
+  g->turns++;
+}
+
+void display(Game* g) {
+  printBoard(g->board);
 }

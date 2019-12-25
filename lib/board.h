@@ -6,14 +6,21 @@
 
 /***** DEFINES *****/
 
-#define BOARDLEN (3u)
-#define CHAR     uint8_t
+#define BOARDLEN  (3u)
+#define CHAR      uint8_t
+#define MOVELEN   (2u)
+#define NUMOFFSET (49u)
+#define HDRSTART  (65u)
+#define HDREND    (HDRSTART + BOARDLEN)
+
 
 /***** MACROS ******/
 
 #define IS_CROSS(x)  (CROSS==x)
 #define IS_NOUGHT(x) (NOUGHT==x)
 #define IS_EMPTY(x)  (EMPTY==x)
+#define TILE(board, row, col) \
+  (board->Grid[row][col])
 
 extern const CHAR CROSS ;
 extern const CHAR NOUGHT;

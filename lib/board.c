@@ -33,6 +33,51 @@ bool validCell(CHAR row, CHAR col)  {
   return (row < BOARDLEN) && (col < BOARDLEN);
 }
 
+/* FIXME This function is not generalisable at all */
+Move* parseMove(CHAR m[MOVELEN], SymbolT Piece)  {
+  CHAR col = m[0];
+  CHAR row = m[1];
+  // DEBUGF("Move: %s -> (Col: %d, Row: %d)\n", m, row, col);
+  MALLOC(Move, pMove);
+  pMove->Piece = Piece;
+  if (BETWEEN(HDRSTART, col, HDREND))  {
+    // convert letter to column index
+    col       -= (CHAR) HDRSTART;
+    pMove->Col = col;
+  }
+  // convert CHAR to row index
+  if (BETWEEN(0u, row, BOARDLEN + NUMOFFSET)) {
+    row       -= (CHAR) NUMOFFSET;
+    pMove->Row = row;
+  }
+  DEBUGF("Move: %s -> (Row: %d, Col: %d)\n", m, pMove->Row, pMove->Col);
+  return pMove;
+}
+
+CHAR readCell(Board* b, CHAR row, CHAR col) {
+  if (validCell(row, col)) {
+    return b->Grid[col][row];
+  }
+  else  { // FIXME, fail here?
+    DEBUGF("\nERROR: cannot read cell (%d, %d)\n", row, col);
+    return EMPTY;
+  }
+}
+
+void writeToCell(Board* b, CHAR row, CHAR col, SymbolT symbol) {
+  if (validCell(row, col) && (IS_EMPTY(b->Grid[row][col])))  {
+    b->Grid[row][col] = getSymbol(symbol);
+  }
+  else  {
+    DEBUGF("invalid cell, cannot write to (%i, %i)\n", row, col);
+    DEBUGF("read(%d, %d) = %c\n", row, col, readCell(b, row, col));
+  }
+}
+void move(Board* b, CHAR m[MOVELEN], SymbolT Piece) {
+  Move* pMove = parseMove(m, Piece);
+  writeToCell(b, pMove->Row, pMove->Col, Piece);
+}
+
 /**** PRINT FNS ****/
 
 void printRow(RowT R) {
@@ -72,25 +117,6 @@ void printBoard(Board* b) {
   }
 }
 
-CHAR readCell(Board* b, CHAR row, CHAR col) {
-  if (validCell(row, col)) {
-    return b->Grid[col][row];
-  }
-  else  { // FIXME, fail here?
-    DEBUGF("\nERROR: cannot read cell (%d, %d)\n", row, col);
-    return EMPTY;
-  }
-}
-
-void writeToCell(Board* b, CHAR row, CHAR col, SymbolT symbol) {
-  if (validCell(row, col) && (IS_EMPTY(b->Grid[row][col])))  {
-    b->Grid[row][col] = getSymbol(symbol);
-  }
-  else  {
-    DEBUGF("invalid cell, cannot write to (%i, %i)\n", row, col);
-    DEBUGF("read(%d, %d) = %c\n", row, col, readCell(b, row, col));
-  }
-}
 
 Board* initBoard() {
   MALLOC(Board, pBoard);

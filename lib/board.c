@@ -68,13 +68,8 @@ void writeToCell(Board* b, CHAR row, CHAR col, SymbolT symbol) {
     b->Grid[row][col] = getSymbol(symbol);
   }
   else  {
-    DEBUGF("invalid cell, cannot write to (%i, %i)\n", row, col);
-    DEBUGF("read(%d, %d) = %c\n", row, col, readCell(b, row, col));
+    DEBUGF("invalid cell, cannot write to (%d, %d)\n", row, col);
   }
-}
-void move(Board* b, CHAR m[MOVELEN], SymbolT Piece) {
-  Move* pMove = parseMove(m, Piece);
-  writeToCell(b, pMove->Row, pMove->Col, Piece);
 }
 
 /**** PRINT FNS ****/
@@ -117,7 +112,7 @@ void printBoard(Board* b) {
 }
 
 
-Board* initBoard() {
+Board* initBoard(void) {
   MALLOC(Board, pBoard);
   for (int i = 0; i < BOARDLEN; i++)  {
     for (int j = 0; j < BOARDLEN; j++)  {
@@ -126,3 +121,9 @@ Board* initBoard() {
   }
   return pBoard;
 }
+
+void placePiece(Board* b, CHAR m[MOVELEN], SymbolT Piece) {
+  Move* pMove = parseMove(m, Piece);
+  writeToCell(b, pMove->Row, pMove->Col, Piece);
+}
+

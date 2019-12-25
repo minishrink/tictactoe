@@ -7,7 +7,6 @@
 /***** DEFINES *****/
 
 #define BOARDLEN  (3u)
-#define CHAR      uint8_t
 #define MOVELEN   (2u)
 #define NUMOFFSET (49u)
 #define HDRSTART  (65u)
@@ -53,8 +52,8 @@ typedef struct MoveT  {
 
 /**** FUNCTION PROTOTYPES ****/
 
-const CHAR getSymbol(SymbolT sym);
-
 Board* initBoard(void);
 
-void makeMove(Board* b, Move* m);
+void printBoard(Board* b);
+
+void placePiece(Board* b, CHAR m[MOVELEN], SymbolT Piece);

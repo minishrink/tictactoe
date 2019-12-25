@@ -1,20 +1,17 @@
 
 #pragma once
 #include <stdlib.h>
-
+  #include <stdio.h>
 
 /* DEBUG switch outputs debug info to stdinput */
-#ifdef DEBUG
-#include <stdio.h>
-#define DEBUGF(...) printf(__VA_ARGS__)
-#else
-  /* LOG switch outputs debug info to file */
-  #ifdef LOG
+#if defined   DEBUG
+  #define DEBUGF(...) (printf   (__VA_ARGS__))
+/* FIXME LOG switch outputs debug info to file */
+#elif defined LOG
   #include "log.h"
-  #define DEBUGF(...) writeLog((__VA_ARGS__))
-  #else
-  #define DEBUGF(...) {}
-  #endif
+  #define DEBUGF(...) (writeLog (__VA_ARGS__))
+#else
+  #define DEBUGF(...) ({})
 #endif
 
 #define MALLOC(varType, varName) \

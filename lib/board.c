@@ -2,7 +2,6 @@
 
 #include "board.h"
 #include <stdbool.h>
-#include <stdlib.h>
 
 /**** DEFINES ****/
 const CHAR CROSS  = 'X';

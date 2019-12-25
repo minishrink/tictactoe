@@ -1,7 +1,14 @@
 
 #pragma once
+
+/*** INCLUDES ***/
 #include <stdlib.h>
-  #include <stdio.h>
+#include <stdio.h>
+
+/*** DEFINES ***/
+#define CHAR uint8_t
+
+/*** MACROS ***/
 
 /* DEBUG switch outputs debug info to stdinput */
 #if defined   DEBUG

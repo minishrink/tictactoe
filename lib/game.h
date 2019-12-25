@@ -2,13 +2,19 @@
 
 /***** INCLUDES *****/
 
-#include "board.c"
+#include "board.h"
+
+/*** DEFINES ***/
+
+#define NUMPLAYERS (2u)
+
+/*** MACROS ***/
 
 /***** DATA TYPES ****/
 
 typedef struct PlayerT  {
-  CHAR* Name;
-  CHAR  Symbol;
+  const CHAR* Name;
+  SymbolT     Piece;
 } Player;
 
 // recall enums are uint32 by default
@@ -20,17 +26,22 @@ typedef enum StateT {
 } StateT;
 
 typedef struct GameT  {
-  enum StateT state;
-  Board       board;
-  Player*     players;
+  StateT       state;
+  Board*       board;
+  Player       players[NUMPLAYERS];
+  unsigned int turns;
 } Game;
 
 /**** FUNCTION PROTOTYPES ****/
 
-Game* initGame(void);
+Game* initGame(const char* p1, const char* p2);
+
+Player* initPlayer(const CHAR* m, SymbolT Piece);
 
 void beginGame(Game* g);
 
 void updateState(Game* g);
 
-void turn(Game* g);
+void turn(Game* g, CHAR moveStr[MOVELEN]);
+
+void display(Game* g);

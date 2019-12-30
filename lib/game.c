@@ -30,6 +30,11 @@ void beginGame(Game* g) {
 }
 
 void updateState(Game* g) {
+  if (g->state == IN_PROGRESS)  {
+    if (g->turns >= BOARDLEN*BOARDLEN)  {
+      g->state = COMPLETE;
+    }
+  }
 }
 
 void display(Game* g) {
@@ -74,5 +79,8 @@ void play(Game* g)  {
   while (validTurn(g))  {
     getInput(g->players[(g->turns%2u)].Name, string);
     turn(g, string);
+    // check if game over / won
+    updateState(g);
+    display(g);
   }
 }

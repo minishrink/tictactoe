@@ -19,8 +19,8 @@ Game* initGame(const char* p1, const char* p2) {
   MALLOC(Game, g);
   g->state = NOT_STARTED;
   g->turns = 0u;
-  g->players[0] = *initPlayer((const CHAR*) p1, _CROSS);
-  g->players[1] = *initPlayer((const CHAR*) p2, _NOUGHT);
+  g->players[0] = initPlayer((const CHAR*) p1, _CROSS);
+  g->players[1] = initPlayer((const CHAR*) p2, _NOUGHT);
   return g;
 }
 
@@ -46,7 +46,7 @@ bool validTurn(Game* g) {
 
 void turn(Game* g, char moveStr[MOVELEN])  {
   if (validTurn(g))  {
-    Player* pCurrentPlayer = &(g->players[(g->turns)%2u]);
+    Player* pCurrentPlayer = g->players[(g->turns)%MOVELEN];
     move(g, pCurrentPlayer, (CHAR*) moveStr);
     DEBUGF("Turn %d: %s -> %s\n", g->turns+1u, pCurrentPlayer->Name, moveStr);
     g->turns++;

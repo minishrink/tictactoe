@@ -28,7 +28,7 @@ typedef enum StateT {
 typedef struct GameT  {
   StateT       state;
   Board*       board;
-  Player       players[NUMPLAYERS];
+  Player*      players[NUMPLAYERS];
   unsigned int turns;
 } Game;
 

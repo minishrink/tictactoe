@@ -42,6 +42,8 @@ void beginGame(Game* g);
 
 void updateState(Game* g);
 
-void turn(Game* g, CHAR moveStr[MOVELEN]);
+void turn(Game* g, char moveStr[MOVELEN]);
+
+void play(Game* g);
 
 void display(Game* g);

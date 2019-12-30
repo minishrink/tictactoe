@@ -1,9 +1,9 @@
 /**** INCLUDES ****/
 
 #include "board.h"
-#include <stdbool.h>
 
 /**** DEFINES ****/
+
 const CHAR CROSS  = 'X';
 const CHAR NOUGHT = 'O';
 const CHAR EMPTY  = '-';
@@ -19,7 +19,7 @@ const CHAR getSymbol(SymbolT sym) {
       return NOUGHT;
       break;
     default:
-      DEBUGF("getSymbol(%d) = %c??\n", sym, sym);
+      DEBUGF("ERROR: getSymbol(%d) = %c??\n", sym, sym);
       return EMPTY;
       break;
   }
@@ -32,24 +32,30 @@ bool validCell(CHAR row, CHAR col)  {
   return (row < BOARDLEN) && (col < BOARDLEN);
 }
 
-/* FIXME This function is not generalisable at all */
-Move* parseMove(CHAR m[MOVELEN], SymbolT Piece)  {
+bool validMove(CHAR m[MOVELEN]) {
   CHAR col = m[0];
   CHAR row = m[1];
-  // DEBUGF("Move: %s -> (Col: %d, Row: %d)\n", m, row, col);
-  MALLOC(Move, pMove);
-  pMove->Piece = Piece;
-  if (BETWEEN(HDRSTART, col, HDREND))  {
-    // convert letter to column index
-    col       -= (CHAR) HDRSTART;
-    pMove->Col = col;
+  return ((BETWEEN(HDRSTART, col, HDREND))
+      && (BETWEEN(0u, row, BOARDLEN + NUMOFFSET)));
+}
+
+/* FIXME This function is not generalisable at all */
+Move* initMove(CHAR m[MOVELEN])  {
+    CHAR col = m[0];
+    CHAR row = m[1];
+    MALLOC(Move, pMove);
+    if (validMove(m)) {
+      // convert letter to column index
+      col       -= (CHAR) HDRSTART;
+      // convert CHAR to row index
+      row       -= (CHAR) NUMOFFSET;
+      // initialise Move*
+      pMove->Col = col;
+      pMove->Row = row;
+    }
+  else  {
+    DEBUGF("ERROR: %s out of bounds\n", m);
   }
-  // convert CHAR to row index
-  if (BETWEEN(0u, row, BOARDLEN + NUMOFFSET)) {
-    row       -= (CHAR) NUMOFFSET;
-    pMove->Row = row;
-  }
-  DEBUGF("Move: %s -> (Row: %d, Col: %d)\n", m, pMove->Row, pMove->Col);
   return pMove;
 }
 
@@ -68,7 +74,7 @@ void writeToCell(Board* b, CHAR row, CHAR col, SymbolT symbol) {
     b->Grid[row][col] = getSymbol(symbol);
   }
   else  {
-    DEBUGF("invalid cell, cannot write to (%d, %d)\n", row, col);
+    DEBUGF("ERROR: cannot write to cell (%d, %d)\n", row, col);
   }
 }
 
@@ -101,6 +107,7 @@ void printHeader(int len) {
 /**** PUBLIC IMPLEMENTATIONS ***/
 
 void printBoard(Board* b) {
+  printf("\n");
   printSep(BOARDLEN);
   printHeader(BOARDLEN);
   printSep(BOARDLEN);
@@ -109,6 +116,7 @@ void printBoard(Board* b) {
     printRow(b->Grid[i]);
     printSep(BOARDLEN);
   }
+  printf("\n");
 }
 
 
@@ -123,7 +131,13 @@ Board* initBoard(void) {
 }
 
 void placePiece(Board* b, CHAR m[MOVELEN], SymbolT Piece) {
-  Move* pMove = parseMove(m, Piece);
-  writeToCell(b, pMove->Row, pMove->Col, Piece);
+  if (validMove(m)) {
+    Move* pMove = initMove(m);
+    pMove->Piece = Piece;
+    writeToCell(b, pMove->Row, pMove->Col, Piece);
+  }
+  else  {
+    DEBUGF("ERROR: %s is an invalid move\n");
+  }
 }
 

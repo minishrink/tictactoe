@@ -1,7 +1,6 @@
 /**** INCLUDES ****/
 
 #pragma once
-#include <stdint.h>
 #include "helpers.h"
 
 /***** DEFINES *****/
@@ -18,8 +17,6 @@
 #define IS_CROSS(x)  (CROSS==x)
 #define IS_NOUGHT(x) (NOUGHT==x)
 #define IS_EMPTY(x)  (EMPTY==x)
-#define TILE(board, row, col) \
-  (board->Grid[row][col])
 
 extern const CHAR CROSS ;
 extern const CHAR NOUGHT;
@@ -55,5 +52,8 @@ typedef struct MoveT  {
 Board* initBoard(void);
 
 void printBoard(Board* b);
+
+bool validMove(CHAR m[MOVELEN]);
+Move* initMove(CHAR m[MOVELEN]);
 
 void placePiece(Board* b, CHAR m[MOVELEN], SymbolT Piece);

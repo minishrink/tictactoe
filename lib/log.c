@@ -11,3 +11,10 @@ void writeLog(const char* fmt, ...)  {
   fclose(pFile);
   va_end(args);
 }
+
+void debugModeMessage(void) {
+  printf("Log level: %s\n", LOGLEVEL);
+#ifdef LOG
+  printf("Writing log to file: %s\n", FILENAME);
+#endif
+}

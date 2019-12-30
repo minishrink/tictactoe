@@ -27,7 +27,7 @@ const CHAR getSymbol(SymbolT sym) {
 
 bool validCell(CHAR row, CHAR col)  {
   if (!((row < BOARDLEN) && (col < BOARDLEN))) {
-    DEBUGF("INVALID CELL(%d, %d)\n", row, col);
+    DEBUGF("ERROR: invalid cell(%d, %d)\n", row, col);
   }
   return (row < BOARDLEN) && (col < BOARDLEN);
 }
@@ -137,7 +137,7 @@ void placePiece(Board* b, CHAR m[MOVELEN], SymbolT Piece) {
     writeToCell(b, pMove->Row, pMove->Col, Piece);
   }
   else  {
-    DEBUGF("ERROR: %s is an invalid move\n");
+    DEBUGF("ERROR: %s is an invalid move\n", m);
   }
 }
 

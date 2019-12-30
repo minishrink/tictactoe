@@ -8,8 +8,6 @@
 /*** DEFINES ***/
 #define NO_LOG     "NONE"
 
-extern const char* FILENAME;
-
 /*** MACROS ***/
 #define STRINGIFY(x) #x
 
@@ -17,7 +15,8 @@ extern const char* FILENAME;
 #if   defined(DEBUG)
   #define LOGLEVEL    (STRINGIFY(DEBUG))
   #define DEBUGF(...) (printf   (__VA_ARGS__))
-#elif defined(LOG)
+/* LOGFILE is a CLI arg */
+#elif defined(LOG) && defined(LOGFILE)
   #define LOGLEVEL    (STRINGIFY(LOG))
   #define DEBUGF(...) (writeLog (__VA_ARGS__))
 #else

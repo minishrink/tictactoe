@@ -1,20 +1,20 @@
 
 #include "log.h"
 
-const char* FILENAME = "tictactoe.log";
-
+#if defined(LOG) && defined(LOGFILE)
 void writeLog(const char* fmt, ...)  {
   va_list args;
   va_start(args, fmt);
-  FILE* pFile = fopen(FILENAME, "a");
+  FILE* pFile = fopen(LOGFILE, "a");
   vfprintf(pFile, fmt, args);
   fclose(pFile);
   va_end(args);
 }
+#endif
 
 void debugModeMessage(void) {
   printf("Log level: %s\n", LOGLEVEL);
-#ifdef LOG
-  printf("Writing log to file: %s\n", FILENAME);
+#if defined(LOG) && defined(LOGFILE)
+  printf("Writing log to file: %s\n", LOGFILE);
 #endif
 }

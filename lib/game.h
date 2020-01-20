@@ -21,6 +21,7 @@ typedef struct PlayerT  {
 typedef enum StateT {
   NOT_STARTED = 0u,
   IN_PROGRESS,
+  COMPLETE,
   OVER_STALE,
   OVER_WON
 } StateT;
@@ -47,3 +48,5 @@ void turn(Game* g, char moveStr[MOVELEN]);
 void play(Game* g);
 
 void display(Game* g);
+
+void endGame(Game* g);

@@ -77,10 +77,14 @@ void getInput(const CHAR* playerName, char* string)  {
 void play(Game* g)  {
   char* string = NULL;
   while (validTurn(g))  {
-    getInput(g->players[(g->turns%2u)].Name, string);
+    getInput(g->players[(g->turns%2u)]->Name, string);
     turn(g, string);
     // check if game over / won
     updateState(g);
     display(g);
   }
+}
+
+void endGame(Game* g) {
+  FREE(g);
 }

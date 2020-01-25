@@ -15,5 +15,8 @@
 #define MALLOC(varType, varName) \
   varType* varName = (varType *)malloc(sizeof(varType))
 
+#define FREE(pMem) \
+  free(pMem)
+
 #define BETWEEN(x,y,z) \
   (x <= y) && (y <= z)
